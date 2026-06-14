@@ -1,5 +1,7 @@
 # CameraX - Ultimate Media & QR Tool
 
+[![Download APK](https://img.shields.io/badge/Download-APK-green.svg?style=for-the-badge&logo=android)](https://github.com/sudo-py-dev/CameraX/releases/download/v1.0.0/app-release.apk)
+
 CameraX is a high-performance, security-hardened Android application built to provide a seamless experience for photography, video recording, and high-speed QR/Barcode scanning. Leveraging modern Android development practices, it offers a polished UI with robust background processing.
 
 ## 🚀 Features
