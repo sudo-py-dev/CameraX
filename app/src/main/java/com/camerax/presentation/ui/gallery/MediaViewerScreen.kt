@@ -3,6 +3,8 @@ package com.camerax.presentation.ui.gallery
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +22,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -152,69 +156,43 @@ fun MediaViewerScreen(
                 Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(Color.Black.copy(alpha = 0.6f))
-                    .padding(horizontal = 32.dp, vertical = 16.dp),
+                    .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+                    .background(Color.Black.copy(alpha = 0.7f))
+                    .padding(vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             // Share
-            IconButton(onClick = {
-                val shareIntent =
-                    Intent(Intent.ACTION_SEND).apply {
-                        type = if (item.type == MediaType.PHOTO) "image/jpeg" else "video/mp4"
-                        putExtra(Intent.EXTRA_STREAM, Uri.parse(item.uri))
-                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    }
-                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)))
-            }) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        Icons.Default.Share,
-                        contentDescription = stringResource(R.string.share),
-                        tint = Color.White,
-                        modifier = Modifier.size(24.dp),
-                    )
-                    Text(
-                        text = stringResource(R.string.share),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.White,
-                    )
-                }
-            }
+            MediaActionItem(
+                icon = Icons.Default.Share,
+                label = stringResource(R.string.share),
+                tint = Color.White,
+                onClick = {
+                    val shareIntent =
+                        Intent(Intent.ACTION_SEND).apply {
+                            type = if (item.type == MediaType.PHOTO) "image/jpeg" else "video/mp4"
+                            putExtra(Intent.EXTRA_STREAM, Uri.parse(item.uri))
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        }
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)))
+                },
+            )
 
             // Info
-            IconButton(onClick = { showInfo = !showInfo }) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        Icons.Default.Info,
-                        contentDescription = stringResource(R.string.info),
-                        tint = Color.White,
-                        modifier = Modifier.size(24.dp),
-                    )
-                    Text(
-                        text = stringResource(R.string.info),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.White,
-                    )
-                }
-            }
+            MediaActionItem(
+                icon = Icons.Default.Info,
+                label = stringResource(R.string.info),
+                tint = Color.White,
+                onClick = { showInfo = !showInfo },
+            )
 
             // Delete
-            IconButton(onClick = { showDeleteConfirmation = true }) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        Icons.Default.Delete,
-                        contentDescription = stringResource(R.string.delete),
-                        tint = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.size(24.dp),
-                    )
-                    Text(
-                        text = stringResource(R.string.delete),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.error,
-                    )
-                }
-            }
+            MediaActionItem(
+                icon = Icons.Default.Delete,
+                label = stringResource(R.string.delete),
+                tint = MaterialTheme.colorScheme.error,
+                onClick = { showDeleteConfirmation = true },
+            )
         }
 
         // Info panel
@@ -270,6 +248,40 @@ fun MediaViewerScreen(
                 },
             )
         }
+    }
+}
+
+@Composable
+private fun MediaActionItem(
+    icon: ImageVector,
+    label: String,
+    tint: Color,
+    onClick: () -> Unit,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier =
+            Modifier
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(bounded = true),
+                    onClick = onClick,
+                )
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = tint,
+            modifier = Modifier.size(24.dp),
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = tint,
+        )
     }
 }
 
