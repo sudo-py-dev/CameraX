@@ -35,6 +35,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +46,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.media3.common.MediaItem as Media3Item
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.camerax.R
@@ -63,8 +68,26 @@ fun MediaViewerScreen(
     var showInfo by remember { mutableStateOf(false) }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
 
+    // ExoPlayer state
+    val exoPlayer = remember {
+        ExoPlayer.Builder(context).build()
+    }
+
     LaunchedEffect(mediaId) {
         mediaItem = viewModel.getMediaById(mediaId)
+        mediaItem?.let { item ->
+            if (item.type == MediaType.VIDEO) {
+                val media3Item = Media3Item.fromUri(Uri.parse(item.uri))
+                exoPlayer.setMediaItem(media3Item)
+                exoPlayer.prepare()
+            }
+        }
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            exoPlayer.release()
+        }
     }
 
     val item = mediaItem
@@ -103,27 +126,17 @@ fun MediaViewerScreen(
                 modifier = Modifier.fillMaxSize(),
             )
         } else {
-            // Video placeholder — in production would use ExoPlayer
-            Box(
+            // Real Video Player using Media3
+            AndroidView(
+                factory = { ctx ->
+                    PlayerView(ctx).apply {
+                        player = exoPlayer
+                        useController = true
+                        setBackgroundColor(android.graphics.Color.BLACK)
+                    }
+                },
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                AsyncImage(
-                    model =
-                        ImageRequest.Builder(context)
-                            .data(Uri.parse(item.uri))
-                            .crossfade(true)
-                            .build(),
-                    contentDescription = item.name,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier.fillMaxSize(),
-                )
-                Text(
-                    text = stringResource(R.string.video_player),
-                    color = Color.White,
-                    style = MaterialTheme.typography.titleMedium,
-                )
-            }
+            )
         }
 
         // Top bar

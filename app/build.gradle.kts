@@ -114,6 +114,7 @@ val datastoreVersion = "1.1.1"
 val coroutinesVersion = "1.8.1"
 val cameraXVersion = "1.3.4"
 val mlKitBarcodeVersion = "17.2.0"
+val media3Version = "1.4.1"
 val coilVersion = "2.7.0"
 val accompanistVersion = "0.34.0"
 val mockkVersion = "1.13.10"
@@ -148,6 +149,10 @@ dependencies {
     // Image Loading
     implementation("io.coil-kt:coil-compose:$coilVersion")
     implementation("io.coil-kt:coil-video:$coilVersion")
+
+    // Video Playback (Media3)
+    implementation("androidx.media3:media3-exoplayer:$media3Version")
+    implementation("androidx.media3:media3-ui:$media3Version")
 
     // Room Database
     implementation("androidx.room:room-runtime:$roomVersion")
