@@ -62,7 +62,6 @@ class MainActivity : ComponentActivity() {
             val themeMode by settingsViewModel.themeMode.collectAsState()
             val language by settingsViewModel.language.collectAsState()
 
-            // Apply locale
             LocaleHelper.applyLocale(this, language.code)
 
             CameraXTheme(themeMode = themeMode) {

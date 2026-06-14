@@ -41,7 +41,6 @@ class CameraViewModelTest {
                 coEvery { hdrEnabled } returns MutableStateFlow(false)
                 coEvery { flashMode } returns MutableStateFlow(FlashMode.OFF)
                 coEvery { timerDelay } returns MutableStateFlow(TimerDelay.OFF)
-                // Mock other settings
                 coEvery { aspectRatio } returns MutableStateFlow(com.camerax.domain.model.AspectRatioMode.RATIO_4_3)
                 coEvery { photoResolution } returns MutableStateFlow(com.camerax.domain.model.PhotoResolution.HIGH)
                 coEvery { videoQuality } returns MutableStateFlow(com.camerax.domain.model.VideoQuality.FHD_1080)
@@ -107,11 +106,6 @@ class CameraViewModelTest {
                 assertEquals(FlashMode.OFF, awaitItem())
 
                 viewModel.toggleFlash()
-                // OFF -> ON
-                // Note: Since repository is mocked to always return OFF, we can't easily test the full cycle
-                // unless we use a fake repository or mock the exact update behavior.
-                // But we can verify the state changes if the repository allows it.
-                // In a real test we would use a FakePreferencesRepository.
                 cancelAndIgnoreRemainingEvents()
             }
         }

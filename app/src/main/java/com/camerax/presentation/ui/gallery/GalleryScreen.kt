@@ -99,7 +99,6 @@ fun GalleryScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Header
             Row(
                 modifier =
                     Modifier
@@ -146,7 +145,6 @@ fun GalleryScreen(
                 }
             }
 
-            // Filter chips
             Row(
                 modifier =
                     Modifier
@@ -228,7 +226,6 @@ fun GalleryScreen(
             }
         }
 
-        // Delete Confirmation Dialog
         if (showDeleteConfirmation) {
             AlertDialog(
                 onDismissRequest = { showDeleteConfirmation = false },
@@ -301,7 +298,6 @@ private fun MediaGridItem(
             modifier = Modifier.fillMaxSize(),
         )
 
-        // Video duration badge
         if (item.type == MediaType.VIDEO) {
             Box(
                 modifier =
@@ -331,7 +327,6 @@ private fun MediaGridItem(
             }
         }
 
-        // Selection indicator
         if (isSelected) {
             Icon(
                 imageVector = Icons.Default.CheckCircle,

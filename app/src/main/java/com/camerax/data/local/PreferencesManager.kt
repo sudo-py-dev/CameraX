@@ -65,7 +65,6 @@ class PreferencesManager(private val context: Context) {
         }
     }
 
-    // Typed accessors
     val themeMode: Flow<String> get() = getString("theme_mode", "SYSTEM")
     val language: Flow<String> get() = getString("language", "SYSTEM")
     val gridEnabled: Flow<Boolean> get() = getBoolean("grid_enabled", false)

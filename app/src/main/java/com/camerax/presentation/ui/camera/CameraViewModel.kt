@@ -68,7 +68,6 @@ class CameraViewModel(
         private val FILENAME_FORMATTER = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
     }
 
-    // UI State
     private val _cameraMode = MutableStateFlow(CameraMode.PHOTO)
     val cameraMode: StateFlow<CameraMode> = _cameraMode.asStateFlow()
 
@@ -114,7 +113,6 @@ class CameraViewModel(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
-    // Settings flows
     val flashMode =
         preferencesRepository.flashMode.stateIn(
             viewModelScope,
@@ -146,7 +144,6 @@ class CameraViewModel(
             VideoQuality.FHD_1080,
         )
 
-    // Camera internals
     private var camera: Camera? = null
     private var imageCapture: ImageCapture? = null
     private var videoCapture: VideoCapture<Recorder>? = null
@@ -561,13 +558,11 @@ class CameraViewModel(
                 }
             preferencesRepository.setFlashMode(nextMode)
 
-            // Apply torch if available
             val hasFlash = camera?.cameraInfo?.hasFlashUnit() ?: false
             if (hasFlash) {
                 camera?.cameraControl?.enableTorch(nextMode == FlashMode.TORCH)
             }
 
-            // Update ImageCapture flash mode
             imageCapture?.flashMode =
                 when (nextMode) {
                     FlashMode.AUTO -> ImageCapture.FLASH_MODE_AUTO

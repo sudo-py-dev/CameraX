@@ -26,7 +26,6 @@ fun GridOverlay(
             val height = size.height
             val strokeWidth = 1f
 
-            // Vertical lines (rule of thirds)
             drawLine(
                 color = GridLineColor,
                 start = Offset(width / 3f, 0f),
@@ -40,7 +39,6 @@ fun GridOverlay(
                 strokeWidth = strokeWidth,
             )
 
-            // Horizontal lines (rule of thirds)
             drawLine(
                 color = GridLineColor,
                 start = Offset(0f, height / 3f),

@@ -67,7 +67,6 @@ fun ScanResultSheet(
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(24.dp),
     ) {
-        // Handle bar
         Spacer(
             modifier =
                 Modifier
@@ -80,7 +79,6 @@ fun ScanResultSheet(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Type icon + label
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -107,7 +105,6 @@ fun ScanResultSheet(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Content
         Text(
             text = result.displayValue.ifEmpty { result.rawValue },
             style = MaterialTheme.typography.bodyLarge,
@@ -124,12 +121,10 @@ fun ScanResultSheet(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Action buttons
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            // Primary action
             Button(
                 onClick = { performPrimaryAction(context, result) },
                 modifier = Modifier.weight(1f),
@@ -145,7 +140,6 @@ fun ScanResultSheet(
                 )
             }
 
-            // Copy
             IconButton(
                 onClick = {
                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -160,7 +154,6 @@ fun ScanResultSheet(
                 )
             }
 
-            // Share
             IconButton(
                 onClick = {
                     val shareIntent =
@@ -181,7 +174,6 @@ fun ScanResultSheet(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Dismiss / Scan Again
         Text(
             text = stringResource(R.string.scan_again),
             style = MaterialTheme.typography.labelLarge,

@@ -131,7 +131,7 @@
     <!-- About -->
     <string name="version">Version %s</string>
     <string name="about_description">The ultimate camera app. Capture stunning photos, record high-quality videos, and scan QR codes — all in one place.</string>
-    <string name="about_tech">Built with Kotlin • Jetpack Compose • Material 3 • CameraX • ML Kit</string>
+    <string name="about_tech">Built with Kotlin • Jetpack Compose • Material 3 • CameraX • ML Kit • Media3</string>
 
     <!-- Crash -->
     <string name="crash_title">Something went wrong</string>

@@ -43,7 +43,6 @@ fun ScannerOverlay(modifier: Modifier = Modifier) {
         val left = (canvasWidth - scanBoxSize) / 2f
         val top = (canvasHeight - scanBoxSize) / 2f - canvasHeight * 0.05f
 
-        // Dim background outside scan area
         val dimPath =
             Path().apply {
                 addRect(Rect(0f, 0f, canvasWidth, canvasHeight))
@@ -62,16 +61,13 @@ fun ScannerOverlay(modifier: Modifier = Modifier) {
             color = Color.Black.copy(alpha = 0.55f),
         )
 
-        // Corner brackets
         val bracketLength = scanBoxSize * 0.12f
         val bracketStroke = 4f
         val bracketColor = QrScannerGreen
 
-        // Top-left
         drawLine(bracketColor, Offset(left, top + 16f), Offset(left, top + bracketLength), strokeWidth = bracketStroke)
         drawLine(bracketColor, Offset(left, top + 16f), Offset(left + bracketLength, top + 16f), strokeWidth = bracketStroke)
 
-        // Top-right
         drawLine(
             bracketColor,
             Offset(left + scanBoxSize, top + 16f),
@@ -85,7 +81,6 @@ fun ScannerOverlay(modifier: Modifier = Modifier) {
             strokeWidth = bracketStroke,
         )
 
-        // Bottom-left
         drawLine(
             bracketColor,
             Offset(left, top + scanBoxSize - 16f),
@@ -99,7 +94,6 @@ fun ScannerOverlay(modifier: Modifier = Modifier) {
             strokeWidth = bracketStroke,
         )
 
-        // Bottom-right
         drawLine(
             bracketColor,
             Offset(left + scanBoxSize, top + scanBoxSize - 16f),
@@ -113,7 +107,6 @@ fun ScannerOverlay(modifier: Modifier = Modifier) {
             strokeWidth = bracketStroke,
         )
 
-        // Scan border
         drawRoundRect(
             color = QrScannerGreen.copy(alpha = 0.3f),
             topLeft = Offset(left, top),
@@ -122,7 +115,6 @@ fun ScannerOverlay(modifier: Modifier = Modifier) {
             style = Stroke(width = 1.5f),
         )
 
-        // Animated scan line
         val lineY = top + (scanBoxSize * scanLineProgress)
         drawLine(
             color = QrScannerGreen.copy(alpha = 0.8f),

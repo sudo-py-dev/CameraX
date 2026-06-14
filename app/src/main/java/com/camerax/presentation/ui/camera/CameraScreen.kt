@@ -91,7 +91,6 @@ fun CameraScreen(
                 .fillMaxSize()
                 .background(Color.Black),
     ) {
-        // Camera Preview
         CameraPreview(
             modifier = Modifier.fillMaxSize(),
             onPreviewViewReady = { viewModel.onPreviewViewReady(it) },
@@ -99,24 +98,20 @@ fun CameraScreen(
             onPinchZoom = { scale -> viewModel.onPinchZoom(scale) },
         )
 
-        // Grid Overlay
         GridOverlay(
             visible = gridEnabled,
             modifier = Modifier.fillMaxSize(),
         )
 
-        // Scanner Overlay (QR mode only)
         if (cameraMode == CameraMode.QR_SCANNER) {
             ScannerOverlay(modifier = Modifier.fillMaxSize())
         }
 
-        // Timer Countdown Overlay
         TimerOverlay(
             countdownValue = countdownValue,
             visible = isCountingDown,
         )
 
-        // Capture Flash effect
         AnimatedVisibility(
             visible = captureFlash,
             enter = fadeIn(),
@@ -130,7 +125,6 @@ fun CameraScreen(
             )
         }
 
-        // Top Controls
         Column(
             modifier =
                 Modifier
@@ -153,7 +147,6 @@ fun CameraScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Recording duration indicator
             AnimatedVisibility(
                 visible = isRecording,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -187,7 +180,6 @@ fun CameraScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Zoom Controller
             ZoomController(
                 zoomRatio = zoomRatio,
                 minZoom = minZoom,
@@ -199,7 +191,6 @@ fun CameraScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Mode Selector
             ModeSelector(
                 selectedMode = cameraMode,
                 onModeSelected = { mode ->
@@ -210,7 +201,6 @@ fun CameraScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Bottom Controls: Thumbnail | Capture | Gallery
             Row(
                 modifier =
                     Modifier
@@ -220,7 +210,6 @@ fun CameraScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                // Last captured thumbnail
                 Box(
                     modifier =
                         Modifier
@@ -247,19 +236,16 @@ fun CameraScreen(
                     }
                 }
 
-                // Capture Button
                 CaptureButton(
                     cameraMode = cameraMode,
                     isRecording = isRecording,
                     onClick = { viewModel.onCaptureAction(context) },
                 )
 
-                // Placeholder for symmetry
                 Spacer(modifier = Modifier.size(48.dp))
             }
         }
 
-        // Scan Result Sheet
         if (scanResult != null) {
             ScanResultSheet(
                 result = scanResult,

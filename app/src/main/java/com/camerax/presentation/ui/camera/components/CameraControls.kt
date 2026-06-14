@@ -66,7 +66,6 @@ fun TopCameraControls(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        // Flash
         IconButton(onClick = onFlashToggle) {
             Icon(
                 imageVector =
@@ -83,7 +82,6 @@ fun TopCameraControls(
         }
 
         if (cameraMode == CameraMode.PHOTO) {
-            // Timer
             IconButton(onClick = onTimerToggle) {
                 Icon(
                     imageVector =
@@ -99,7 +97,6 @@ fun TopCameraControls(
                 )
             }
 
-            // HDR
             IconButton(onClick = onHdrToggle) {
                 Icon(
                     imageVector = if (hdrEnabled) Icons.Default.HdrOn else Icons.Default.HdrOff,
@@ -110,7 +107,6 @@ fun TopCameraControls(
             }
         }
 
-        // Grid
         IconButton(onClick = onGridToggle) {
             Icon(
                 imageVector = Icons.Default.GridOn,
@@ -120,7 +116,6 @@ fun TopCameraControls(
             )
         }
 
-        // Camera Flip
         val animatedRotation by animateFloatAsState(
             targetValue = flipRotation,
             animationSpec = tween(400),

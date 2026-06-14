@@ -63,6 +63,7 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
     var showDeleteConfirmation by remember { mutableStateOf(false) }
     var isDeleteAll by remember { mutableStateOf(false) }
     var deleteId by remember { mutableStateOf<Long?>(null) }
+    var selectedScan by remember { mutableStateOf<ScanResult?>(null) }
 
     val listState = rememberLazyListState()
 
@@ -90,7 +91,6 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
         Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -138,7 +138,6 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
             Spacer(modifier = Modifier.height(16.dp))
 
             if (scans.isEmpty()) {
-                // Empty state
                 Column(
                     modifier =
                         Modifier
@@ -176,7 +175,7 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                                 if (selectedIds.isNotEmpty()) {
                                     viewModel.toggleSelection(scan.id)
                                 } else {
-                                    // Normally view scan, but not requested here
+                                    selectedScan = scan
                                 }
                             },
                             onLongClick = { viewModel.toggleSelection(scan.id) },
@@ -194,7 +193,6 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
             }
         }
 
-        // Delete Confirmation Dialog
         if (showDeleteConfirmation) {
             AlertDialog(
                 onDismissRequest = { showDeleteConfirmation = false },
@@ -231,6 +229,14 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                         Text(stringResource(R.string.cancel))
                     }
                 },
+            )
+        }
+
+        if (selectedScan != null) {
+            ScanResultSheet(
+                result = selectedScan,
+                onDismiss = { selectedScan = null },
+                modifier = Modifier.align(Alignment.BottomCenter),
             )
         }
     }
@@ -273,7 +279,6 @@ private fun ScanHistoryItem(
                     .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // Type badge
             Box(
                 modifier =
                     Modifier

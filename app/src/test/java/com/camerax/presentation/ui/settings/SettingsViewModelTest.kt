@@ -31,7 +31,6 @@ class SettingsViewModelTest {
             mockk(relaxed = true) {
                 coEvery { themeMode } returns themeModeFlow
                 coEvery { language } returns languageFlow
-                // Provide default flows for other properties to avoid crashes
                 coEvery { gridEnabled } returns MutableStateFlow(false)
                 coEvery { shutterSoundEnabled } returns MutableStateFlow(true)
                 coEvery { flashMode } returns MutableStateFlow(com.camerax.domain.model.FlashMode.OFF)

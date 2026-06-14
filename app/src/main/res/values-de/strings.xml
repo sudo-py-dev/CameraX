@@ -85,7 +85,7 @@
     <string name="grant_permissions">Berechtigungen erteilen</string>
     <string name="version">Version %s</string>
     <string name="about_description">Die ultimative Kamera-App. Atemberaubende Fotos aufnehmen, hochwertige Videos drehen und QR-Codes scannen — alles an einem Ort.</string>
-    <string name="about_tech">Erstellt mit Kotlin • Jetpack Compose • Material 3 • CameraX • ML Kit</string>
+    <string name="about_tech">Erstellt mit Kotlin • Jetpack Compose • Material 3 • CameraX • ML Kit • Media3</string>
     <string name="crash_title">Etwas ist schiefgelaufen</string>
     <string name="crash_restart">App neu starten</string>
     <string name="crash_copy_log">Fehlerprotokoll kopieren</string>

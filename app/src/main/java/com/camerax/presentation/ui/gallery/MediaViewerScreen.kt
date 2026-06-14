@@ -30,12 +30,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,7 +47,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.media3.common.MediaItem as Media3Item
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
@@ -56,6 +55,7 @@ import com.camerax.R
 import com.camerax.domain.model.MediaItem
 import com.camerax.domain.model.MediaType
 import com.camerax.presentation.ui.util.FormatUtils
+import androidx.media3.common.MediaItem as Media3Item
 
 @Composable
 fun MediaViewerScreen(
@@ -68,10 +68,10 @@ fun MediaViewerScreen(
     var showInfo by remember { mutableStateOf(false) }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
 
-    // ExoPlayer state
-    val exoPlayer = remember {
-        ExoPlayer.Builder(context).build()
-    }
+    val exoPlayer =
+        remember {
+            ExoPlayer.Builder(context).build()
+        }
 
     LaunchedEffect(mediaId) {
         mediaItem = viewModel.getMediaById(mediaId)
@@ -113,7 +113,6 @@ fun MediaViewerScreen(
                 .fillMaxSize()
                 .background(Color.Black),
     ) {
-        // Image viewer
         if (item.type == MediaType.PHOTO) {
             AsyncImage(
                 model =
@@ -126,7 +125,6 @@ fun MediaViewerScreen(
                 modifier = Modifier.fillMaxSize(),
             )
         } else {
-            // Real Video Player using Media3
             AndroidView(
                 factory = { ctx ->
                     PlayerView(ctx).apply {
@@ -139,7 +137,6 @@ fun MediaViewerScreen(
             )
         }
 
-        // Top bar
         Row(
             modifier =
                 Modifier
@@ -163,7 +160,6 @@ fun MediaViewerScreen(
             }
         }
 
-        // Bottom actions
         Row(
             modifier =
                 Modifier
@@ -175,7 +171,6 @@ fun MediaViewerScreen(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // Share
             MediaActionItem(
                 icon = Icons.Default.Share,
                 label = stringResource(R.string.share),
@@ -191,7 +186,6 @@ fun MediaViewerScreen(
                 },
             )
 
-            // Info
             MediaActionItem(
                 icon = Icons.Default.Info,
                 label = stringResource(R.string.info),
@@ -199,7 +193,6 @@ fun MediaViewerScreen(
                 onClick = { showInfo = !showInfo },
             )
 
-            // Delete
             MediaActionItem(
                 icon = Icons.Default.Delete,
                 label = stringResource(R.string.delete),
@@ -208,7 +201,6 @@ fun MediaViewerScreen(
             )
         }
 
-        // Info panel
         if (showInfo) {
             Column(
                 modifier =
@@ -237,7 +229,6 @@ fun MediaViewerScreen(
             }
         }
 
-        // Delete Confirmation Dialog
         if (showDeleteConfirmation) {
             AlertDialog(
                 onDismissRequest = { showDeleteConfirmation = false },

@@ -103,7 +103,6 @@ fun SettingsScreen(
                     .verticalScroll(scrollState),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            // General
             SectionHeader(stringResource(R.string.settings_general))
             SettingsCard {
                 SettingsDropdownItem(
@@ -173,7 +172,6 @@ fun SettingsScreen(
                 }
             }
 
-            // Camera
             SectionHeader(stringResource(R.string.settings_camera))
             SettingsCard {
                 SettingsSwitchItem(
@@ -191,7 +189,6 @@ fun SettingsScreen(
                 )
             }
 
-            // Photo
             SectionHeader(stringResource(R.string.settings_photo))
             SettingsCard {
                 SettingsDropdownItem(
@@ -262,7 +259,6 @@ fun SettingsScreen(
                 )
             }
 
-            // Video
             SectionHeader(stringResource(R.string.settings_video))
             SettingsCard {
                 SettingsDropdownItem(
@@ -303,7 +299,6 @@ fun SettingsScreen(
                 )
             }
 
-            // QR Scanner
             SectionHeader(stringResource(R.string.settings_scanner))
             SettingsCard {
                 SettingsSwitchItem(
@@ -328,7 +323,6 @@ fun SettingsScreen(
                 )
             }
 
-            // About
             SectionHeader(stringResource(R.string.settings_about))
             SettingsCard {
                 SettingsNavigationItem(

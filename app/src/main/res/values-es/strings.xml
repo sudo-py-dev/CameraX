@@ -85,7 +85,7 @@
     <string name="grant_permissions">Conceder permisos</string>
     <string name="version">Versión %s</string>
     <string name="about_description">La app de cámara definitiva. Captura fotos impresionantes, graba vídeos de alta calidad y escanea códigos QR, todo en un solo lugar.</string>
-    <string name="about_tech">Hecho con Kotlin • Jetpack Compose • Material 3 • CameraX • ML Kit</string>
+    <string name="about_tech">Construido con Kotlin • Jetpack Compose • Material 3 • CameraX • ML Kit • Media3</string>
     <string name="crash_title">Algo salió mal</string>
     <string name="crash_restart">Reiniciar app</string>
     <string name="crash_copy_log">Copiar registro de error</string>
