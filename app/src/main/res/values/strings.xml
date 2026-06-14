@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CameraX</string>
+
+    <!-- Navigation -->
+    <string name="nav_camera">Camera</string>
+    <string name="nav_gallery">Gallery</string>
+    <string name="nav_history">History</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Camera Modes -->
+    <string name="mode_photo">Photo</string>
+    <string name="mode_video">Video</string>
+    <string name="mode_qr">Scanner</string>
+
+    <!-- Camera Controls -->
+    <string name="flash_toggle">Toggle flash</string>
+    <string name="timer_toggle">Toggle timer</string>
+    <string name="grid_toggle">Toggle grid</string>
+    <string name="hdr_toggle">Toggle HDR</string>
+    <string name="flip_camera">Flip camera</string>
+    <string name="last_capture">Last capture</string>
+
+    <!-- Gallery -->
+    <string name="gallery">Gallery</string>
+    <string name="media_count">%d items</string>
+    <string name="filter_all">All</string>
+    <string name="filter_photos">Photos</string>
+    <string name="filter_videos">Videos</string>
+    <string name="no_media_yet">No media yet</string>
+    <string name="selected">Selected</string>
+    <string name="delete_selected">Delete selected</string>
+    <string name="delete_all">Delete all</string>
+    <string name="loading">Loading…</string>
+    <string name="video_player">Video Player</string>
+
+    <!-- Media Viewer -->
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="info">Info</string>
+    <string name="back">Back</string>
+    <string name="details">Details</string>
+    <string name="name_label">Name</string>
+    <string name="type_label">Type</string>
+    <string name="size_label">Size</string>
+    <string name="date_label">Date</string>
+    <string name="duration_label">Duration</string>
+    <string name="resolution_label">Resolution</string>
+
+    <!-- Scanner -->
+    <string name="scan_history">Scan History</string>
+    <string name="scan_count">%d scans</string>
+    <string name="clear_history">Clear history</string>
+    <string name="no_scans_yet">No scans yet</string>
+    <string name="scan_again">Scan Again</string>
+    <string name="copy">Copy</string>
+    <string name="copied">Copied to clipboard</string>
+    <string name="no_app_found">No app found to handle this action</string>
+
+    <!-- Settings -->
+    <string name="settings_general">General</string>
+    <string name="settings_camera">Camera</string>
+    <string name="settings_photo">Photo</string>
+    <string name="settings_video">Video</string>
+    <string name="settings_scanner">QR Scanner</string>
+    <string name="settings_about">About</string>
+
+    <string name="setting_theme">Theme</string>
+    <string name="setting_language">Language</string>
+    <string name="setting_grid">Grid Lines</string>
+    <string name="setting_shutter_sound">Shutter Sound</string>
+    <string name="setting_aspect_ratio">Aspect Ratio</string>
+    <string name="setting_resolution">Photo Resolution</string>
+    <string name="setting_hdr">HDR</string>
+    <string name="setting_video_quality">Video Quality</string>
+    <string name="setting_stabilization">Stabilization</string>
+    <string name="setting_auto_copy">Auto-copy Scans</string>
+    <string name="setting_vibrate_scan">Vibrate on Scan</string>
+    <string name="setting_beep_scan">Beep on Scan</string>
+    <string name="setting_about_app">About CameraX</string>
+
+    <!-- Theme options -->
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
+    <!-- Language options -->
+    <string name="lang_system">System Default</string>
+    <string name="lang_en">English</string>
+    <string name="lang_es">Español</string>
+    <string name="lang_fr">Français</string>
+    <string name="lang_de">Deutsch</string>
+    <string name="lang_he">עברית</string>
+
+    <!-- Quality options -->
+    <string name="quality_high">High</string>
+    <string name="quality_medium">Medium</string>
+    <string name="quality_low">Low</string>
+
+    <!-- Permissions -->
+    <string name="permission_title">Camera Access Required</string>
+    <string name="permission_body">CameraX needs access to your camera and microphone to capture photos and record videos. Your media is stored securely on your device.</string>
+    <string name="grant_permissions">Grant Permissions</string>
+
+    <!-- About -->
+    <string name="version">Version %s</string>
+    <string name="about_description">The ultimate camera app. Capture stunning photos, record high-quality videos, and scan QR codes — all in one place.</string>
+    <string name="about_tech">Built with Kotlin • Jetpack Compose • Material 3 • CameraX • ML Kit</string>
+
+    <!-- Crash -->
+    <string name="crash_title">Something went wrong</string>
+    <string name="crash_restart">Restart App</string>
+    <string name="crash_copy_log">Copy Error Log</string>
+</resources>
