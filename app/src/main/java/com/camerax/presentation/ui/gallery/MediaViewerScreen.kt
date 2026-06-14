@@ -20,10 +20,12 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -55,6 +57,7 @@ fun MediaViewerScreen(
     val context = LocalContext.current
     var mediaItem by remember { mutableStateOf<MediaItem?>(null) }
     var showInfo by remember { mutableStateOf(false) }
+    var showDeleteConfirmation by remember { mutableStateOf(false) }
 
     LaunchedEffect(mediaId) {
         mediaItem = viewModel.getMediaById(mediaId)
@@ -197,10 +200,7 @@ fun MediaViewerScreen(
             }
 
             // Delete
-            IconButton(onClick = {
-                viewModel.deleteMedia(item.id)
-                onNavigateBack()
-            }) {
+            IconButton(onClick = { showDeleteConfirmation = true }) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
                         Icons.Default.Delete,
@@ -244,6 +244,31 @@ fun MediaViewerScreen(
                     InfoRow(stringResource(R.string.resolution_label), "${item.width} × ${item.height}")
                 }
             }
+        }
+
+        // Delete Confirmation Dialog
+        if (showDeleteConfirmation) {
+            AlertDialog(
+                onDismissRequest = { showDeleteConfirmation = false },
+                title = { Text(stringResource(R.string.confirm_delete_title)) },
+                text = { Text(stringResource(R.string.confirm_delete_message)) },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            viewModel.deleteMedia(item.id)
+                            showDeleteConfirmation = false
+                            onNavigateBack()
+                        },
+                    ) {
+                        Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error)
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDeleteConfirmation = false }) {
+                        Text(stringResource(R.string.cancel))
+                    }
+                },
+            )
         }
     }
 }

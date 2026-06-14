@@ -27,7 +27,12 @@
     <string name="video_player">Reproductor de vídeo</string>
     <string name="share">Compartir</string>
     <string name="delete">Eliminar</string>
-    <string name="info">Info</string>
+    <string name="info">Información</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm_delete_title">Confirmar eliminación</string>
+    <string name="confirm_delete_message">¿Estás seguro de que deseas eliminar este elemento? Esta acción no se puede deshacer.</string>
+    <string name="confirm_delete_multiple_message">¿Estás seguro de que deseas eliminar %d elementos? Esta acción no se puede deshacer.</string>
+    <string name="confirm_clear_all_message">¿Estás seguro de que deseas eliminar todo? Esta acción no se puede deshacer.</string>
     <string name="back">Atrás</string>
     <string name="details">Detalles</string>
     <string name="name_label">Nombre</string>

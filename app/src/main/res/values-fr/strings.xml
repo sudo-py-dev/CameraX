@@ -27,7 +27,12 @@
     <string name="video_player">Lecteur vidéo</string>
     <string name="share">Partager</string>
     <string name="delete">Supprimer</string>
-    <string name="info">Info</string>
+    <string name="info">Infos</string>
+    <string name="cancel">Annuler</string>
+    <string name="confirm_delete_title">Confirmer la suppression</string>
+    <string name="confirm_delete_message">Voulez-vous vraiment supprimer cet élément ? Cette action est irréversible.</string>
+    <string name="confirm_delete_multiple_message">Voulez-vous vraiment supprimer %d éléments ? Cette action est irréversible.</string>
+    <string name="confirm_clear_all_message">Voulez-vous vraiment tout supprimer ? Cette action est irréversible.</string>
     <string name="back">Retour</string>
     <string name="details">Détails</string>
     <string name="name_label">Nom</string>

@@ -26,9 +26,14 @@
     <string name="loading">טוען…</string>
     <string name="video_player">נגן וידאו</string>
     <string name="share">שתף</string>
-    <string name="delete">מחק</string>
+    <string name="delete">מחיקה</string>
     <string name="info">מידע</string>
-    <string name="back">חזור</string>
+    <string name="cancel">ביטול</string>
+    <string name="confirm_delete_title">אישור מחיקה</string>
+    <string name="confirm_delete_message">האם אתה בטוח שברצונך למחוק פריט זה? לא ניתן לבטל פעולה זו.</string>
+    <string name="confirm_delete_multiple_message">האם אתה בטוח שברצונך למחוק %d פריטים? לא ניתן לבטל פעולה זו.</string>
+    <string name="confirm_clear_all_message">האם אתה בטוח שברצונך למחוק את הכל? לא ניתן לבטל פעולה זו.</string>
+    <string name="back">חזרה</string>
     <string name="details">פרטים</string>
     <string name="name_label">שם</string>
     <string name="type_label">סוג</string>

@@ -15,15 +15,15 @@ import kotlinx.coroutines.launch
 class ScanHistoryViewModel(
     private val scanHistoryRepository: ScanHistoryRepository,
 ) : ViewModel() {
-    private val _limit = MutableStateFlow(20)
+    private val limitFlow = MutableStateFlow(20)
 
     val scans: StateFlow<List<ScanResult>> =
-        _limit.flatMapLatest { limit ->
+        limitFlow.flatMapLatest { limit ->
             scanHistoryRepository.getScanHistory(limit = limit, offset = 0)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun loadMore() {
-        _limit.value += 20
+        limitFlow.value += 20
     }
 
     val scanCount: StateFlow<Int> =

@@ -25,18 +25,22 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.QrCodeScanner
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -56,14 +60,19 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
     val scanCount by viewModel.scanCount.collectAsState()
     val selectedIds by viewModel.selectedIds.collectAsState()
 
+    var showDeleteConfirmation by remember { mutableStateOf(false) }
+    var isDeleteAll by remember { mutableStateOf(false) }
+    var deleteId by remember { mutableStateOf<Long?>(null) }
+
     val listState = rememberLazyListState()
 
-    val shouldLoadMore = remember {
-        derivedStateOf {
-            val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
-            lastVisibleItem != null && lastVisibleItem.index >= scans.size - 5
+    val shouldLoadMore =
+        remember {
+            derivedStateOf {
+                val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
+                lastVisibleItem != null && lastVisibleItem.index >= scans.size - 5
+            }
         }
-    }
 
     LaunchedEffect(shouldLoadMore.value) {
         if (shouldLoadMore.value) {
@@ -100,7 +109,11 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                     )
                 }
                 if (selectedIds.isNotEmpty()) {
-                    IconButton(onClick = { viewModel.deleteSelected() }) {
+                    IconButton(onClick = {
+                        isDeleteAll = false
+                        deleteId = null
+                        showDeleteConfirmation = true
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = stringResource(R.string.delete_selected),
@@ -108,7 +121,11 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                         )
                     }
                 } else if (scans.isNotEmpty()) {
-                    IconButton(onClick = { viewModel.clearHistory() }) {
+                    IconButton(onClick = {
+                        isDeleteAll = true
+                        deleteId = null
+                        showDeleteConfirmation = true
+                    }) {
                         Icon(
                             imageVector = Icons.Default.DeleteSweep,
                             contentDescription = stringResource(R.string.clear_history),
@@ -163,7 +180,11 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                                 }
                             },
                             onLongClick = { viewModel.toggleSelection(scan.id) },
-                            onDelete = { viewModel.deleteScan(scan.id) },
+                            onDelete = {
+                                isDeleteAll = false
+                                deleteId = scan.id
+                                showDeleteConfirmation = true
+                            },
                         )
                     }
                     item {
@@ -171,6 +192,46 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                     }
                 }
             }
+        }
+
+        // Delete Confirmation Dialog
+        if (showDeleteConfirmation) {
+            AlertDialog(
+                onDismissRequest = { showDeleteConfirmation = false },
+                title = { Text(stringResource(R.string.confirm_delete_title)) },
+                text = {
+                    Text(
+                        when {
+                            isDeleteAll -> stringResource(R.string.confirm_clear_all_message)
+                            deleteId != null -> stringResource(R.string.confirm_delete_message)
+                            else -> stringResource(R.string.confirm_delete_multiple_message, selectedIds.size)
+                        },
+                    )
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            when {
+                                isDeleteAll -> viewModel.clearHistory()
+                                deleteId != null -> viewModel.deleteScan(deleteId!!)
+                                else -> viewModel.deleteSelected()
+                            }
+                            showDeleteConfirmation = false
+                            deleteId = null
+                        },
+                    ) {
+                        Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error)
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        showDeleteConfirmation = false
+                        deleteId = null
+                    }) {
+                        Text(stringResource(R.string.cancel))
+                    }
+                },
+            )
         }
     }
 }
@@ -196,7 +257,7 @@ private fun ScanHistoryItem(
                 .border(2.dp, borderColor, RoundedCornerShape(16.dp))
                 .combinedClickable(
                     onClick = onClick,
-                    onLongClick = onLongClick
+                    onLongClick = onLongClick,
                 ),
         shape = RoundedCornerShape(16.dp),
         colors =
@@ -251,7 +312,7 @@ private fun ScanHistoryItem(
                     imageVector = Icons.Default.CheckCircle,
                     contentDescription = stringResource(R.string.selected),
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
                 )
             } else {
                 IconButton(onClick = onDelete) {

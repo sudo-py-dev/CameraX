@@ -26,15 +26,15 @@ class GalleryViewModel(
     private val _filter = MutableStateFlow(GalleryFilter.ALL)
     val filter: StateFlow<GalleryFilter> = _filter.asStateFlow()
 
-    private val _limit = MutableStateFlow(30)
+    private val limitFlow = MutableStateFlow(30)
 
     val mediaItems: StateFlow<List<MediaItem>> =
-        _limit.flatMapLatest { limit ->
+        limitFlow.flatMapLatest { limit ->
             mediaRepository.getMediaItems(limit = limit, offset = 0)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun loadMore() {
-        _limit.value += 30
+        limitFlow.value += 30
     }
 
     val filteredMedia: StateFlow<List<MediaItem>> =

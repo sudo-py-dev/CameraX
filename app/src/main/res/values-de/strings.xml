@@ -28,6 +28,11 @@
     <string name="share">Teilen</string>
     <string name="delete">Löschen</string>
     <string name="info">Info</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="confirm_delete_title">Löschen bestätigen</string>
+    <string name="confirm_delete_message">Sind Sie sicher, dass Sie dieses Element löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="confirm_delete_multiple_message">Sind Sie sicher, dass Sie %d Elemente löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="confirm_clear_all_message">Sind Sie sicher, dass Sie alles löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
     <string name="back">Zurück</string>
     <string name="details">Details</string>
     <string name="name_label">Name</string>
