@@ -3,10 +3,50 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    
+    <!-- Camera Body Top Bar -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M38,30 h32 c2,0 4,2 4,4 v4 h-40 v-4 c0,-2 2,-4 4,-4 z" />
+    
+    <!-- Shutter Button -->
+    <path
+        android:fillColor="#FF5252"
+        android:pathData="M42,27 h12 v3 h-12 z" />
+
+    <!-- Main Camera Body -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M30,30h48v48h-48z" />
+        android:pathData="M22,38 h64 c3,0 6,3 6,6 v32 c0,3 -3,6 -6,6 h-64 c-3,0 -6,-3 -6,-6 v-32 c0,-3 3,-6 6,-6 z" />
+
+    <!-- Lens Outer Ring -->
     <path
-        android:fillColor="#000000"
-        android:pathData="M44,44h20v20h-20z" />
+        android:fillColor="#F5F5F5"
+        android:pathData="M54,60 m-18,0 a18,18 0 1,1 36,0 a18,18 0 1,1 -36,0" />
+    
+    <!-- Lens Middle Ring -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M54,60 m-15,0 a15,15 0 1,1 30,0 a15,15 0 1,1 -30,0" />
+
+    <!-- Lens Glass -->
+    <path
+        android:fillColor="#1C1C1C"
+        android:pathData="M54,60 m-11,0 a11,11 0 1,1 22,0 a11,11 0 1,1 -22,0" />
+
+    <!-- Lens Reflection -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:alpha="0.3"
+        android:pathData="M50,54 a4,4 0 1,1 4,4 a4,4 0 0,1 -4,-4 z" />
+
+    <!-- Flash -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M72,46 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0" />
+    
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M72,46 m-2,0 a2,2 0 1,1 4,0 a2,2 0 1,1 -4,0" />
+
 </vector>
