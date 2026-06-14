@@ -1,0 +1,29 @@
+<svg width="256" height="256" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="108" height="108" rx="24" fill="#1C1C1C"/>
+    
+    <!-- Camera Body Top Bar -->
+    <path d="M38 30h32c2 0 4 2 4 4v4H34v-4c0-2 2-4 4-4z" fill="#E0E0E0"/>
+    
+    <!-- Shutter Button -->
+    <rect x="42" y="27" width="12" height="3" fill="#FF5252"/>
+
+    <!-- Main Camera Body -->
+    <rect x="16" y="38" width="76" height="44" rx="6" fill="#FFFFFF"/>
+
+    <!-- Lens Outer Ring -->
+    <circle cx="54" cy="60" r="18" fill="#F5F5F5"/>
+    
+    <!-- Lens Middle Ring -->
+    <circle cx="54" cy="60" r="15" fill="#E0E0E0"/>
+
+    <!-- Lens Glass -->
+    <circle cx="54" cy="60" r="11" fill="#1C1C1C"/>
+
+    <!-- Lens Reflection -->
+    <circle cx="50" cy="54" r="4" fill="#FFFFFF" fill-opacity="0.3"/>
+
+    <!-- Flash -->
+    <circle cx="72" cy="46" r="4" fill="#E0E0E0"/>
+    <circle cx="72" cy="46" r="2" fill="#FFD54F"/>
+</svg>
