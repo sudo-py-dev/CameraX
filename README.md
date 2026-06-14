@@ -16,7 +16,7 @@ CameraX is a high-performance, security-hardened Android application built to pr
 
 ### 📸 Pro Camera Suite
 *   **High-Quality Photography:** Optimized image capture with HDR support and grid overlays.
-*   **Video Recording:** Smooth video capture with real-time duration tracking.
+*   **Video Recording & Playback:** Real-time capture and integrated Media3 ExoPlayer for smooth playback.
 *   **Intelligent Flash:** Smart toggle between Auto, On, Off, and Torch modes with hardware verification.
 *   **Advanced Controls:** Precision pinch-to-zoom and tap-to-focus for professional results.
 *   **Timer System:** Integrated countdown timer (3s, 5s, 10s) for stable captures.
