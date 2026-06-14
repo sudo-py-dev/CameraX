@@ -93,7 +93,7 @@ fun ScanResultSheet(
             Spacer(modifier = Modifier.width(12.dp))
             Column {
                 Text(
-                    text = getContentTypeLabel(result.contentType),
+                    text = stringResource(getContentTypeLabel(result.contentType)),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface,
                 )
@@ -140,7 +140,7 @@ fun ScanResultSheet(
                     ),
             ) {
                 Text(
-                    text = getPrimaryActionLabel(result.contentType),
+                    text = stringResource(getPrimaryActionLabel(result.contentType)),
                     style = MaterialTheme.typography.labelLarge,
                 )
             }
@@ -189,8 +189,9 @@ fun ScanResultSheet(
             modifier =
                 Modifier
                     .align(Alignment.CenterHorizontally)
+                    .clip(RoundedCornerShape(8.dp))
                     .clickable { onDismiss() }
-                    .padding(8.dp),
+                    .padding(12.dp),
         )
     }
 }
@@ -207,47 +208,47 @@ private fun getContentTypeIcon(type: BarcodeContentType): ImageVector =
         else -> Icons.Default.QrCode
     }
 
-private fun getContentTypeLabel(type: BarcodeContentType): String =
+private fun getContentTypeLabel(type: BarcodeContentType): Int =
     when (type) {
-        BarcodeContentType.URL -> "URL"
-        BarcodeContentType.WIFI -> "Wi-Fi"
-        BarcodeContentType.CONTACT -> "Contact"
-        BarcodeContentType.EMAIL -> "Email"
-        BarcodeContentType.PHONE -> "Phone"
-        BarcodeContentType.SMS -> "SMS"
-        BarcodeContentType.GEO -> "Location"
-        BarcodeContentType.CALENDAR_EVENT -> "Event"
-        BarcodeContentType.PRODUCT -> "Product"
-        BarcodeContentType.TEXT -> "Text"
-        BarcodeContentType.UNKNOWN -> "Barcode"
+        BarcodeContentType.URL -> R.string.barcode_type_url
+        BarcodeContentType.WIFI -> R.string.barcode_type_wifi
+        BarcodeContentType.CONTACT -> R.string.barcode_type_contact
+        BarcodeContentType.EMAIL -> R.string.barcode_type_email
+        BarcodeContentType.PHONE -> R.string.barcode_type_phone
+        BarcodeContentType.SMS -> R.string.barcode_type_sms
+        BarcodeContentType.GEO -> R.string.barcode_type_location
+        BarcodeContentType.CALENDAR_EVENT -> R.string.barcode_type_event
+        BarcodeContentType.PRODUCT -> R.string.barcode_type_product
+        BarcodeContentType.TEXT -> R.string.barcode_type_text
+        BarcodeContentType.UNKNOWN -> R.string.barcode_type_unknown
     }
 
-private fun getPrimaryActionLabel(type: BarcodeContentType): String =
+private fun getPrimaryActionLabel(type: BarcodeContentType): Int =
     when (type) {
-        BarcodeContentType.URL -> "Open"
-        BarcodeContentType.PHONE -> "Call"
-        BarcodeContentType.EMAIL -> "Send Email"
-        BarcodeContentType.SMS -> "Send SMS"
-        BarcodeContentType.GEO -> "Open Map"
-        BarcodeContentType.WIFI -> "Connect"
-        BarcodeContentType.CONTACT -> "Add Contact"
-        else -> "Open"
+        BarcodeContentType.URL -> R.string.barcode_action_open_url
+        BarcodeContentType.PHONE -> R.string.barcode_action_call
+        BarcodeContentType.EMAIL -> R.string.barcode_action_email
+        BarcodeContentType.SMS -> R.string.barcode_action_sms
+        BarcodeContentType.GEO -> R.string.barcode_action_map
+        BarcodeContentType.WIFI -> R.string.barcode_action_connect
+        BarcodeContentType.CONTACT -> R.string.barcode_action_add_contact
+        else -> R.string.barcode_action_open_url
     }
 
 private fun performPrimaryAction(
     context: Context,
     result: ScanResult,
 ) {
-    val intent =
-        when (result.contentType) {
-            BarcodeContentType.URL -> Intent(Intent.ACTION_VIEW, Uri.parse(result.rawValue))
-            BarcodeContentType.PHONE -> Intent(Intent.ACTION_DIAL, Uri.parse("tel:${result.rawValue}"))
-            BarcodeContentType.EMAIL -> Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:${result.rawValue}"))
-            BarcodeContentType.SMS -> Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:${result.rawValue}"))
-            BarcodeContentType.GEO -> Intent(Intent.ACTION_VIEW, Uri.parse(result.rawValue))
-            else -> Intent(Intent.ACTION_VIEW, Uri.parse(result.rawValue))
-        }
     try {
+        val intent =
+            when (result.contentType) {
+                BarcodeContentType.URL -> Intent(Intent.ACTION_VIEW, Uri.parse(result.rawValue))
+                BarcodeContentType.PHONE -> Intent(Intent.ACTION_DIAL, Uri.parse("tel:${result.rawValue}"))
+                BarcodeContentType.EMAIL -> Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:${result.rawValue}"))
+                BarcodeContentType.SMS -> Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:${result.rawValue}"))
+                BarcodeContentType.GEO -> Intent(Intent.ACTION_VIEW, Uri.parse(result.rawValue))
+                else -> Intent(Intent.ACTION_VIEW, Uri.parse(result.rawValue))
+            }
         context.startActivity(intent)
     } catch (e: Exception) {
         Toast.makeText(context, context.getString(R.string.no_app_found), Toast.LENGTH_SHORT).show()

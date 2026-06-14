@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -25,9 +26,16 @@ class GalleryViewModel(
     private val _filter = MutableStateFlow(GalleryFilter.ALL)
     val filter: StateFlow<GalleryFilter> = _filter.asStateFlow()
 
+    private val _limit = MutableStateFlow(30)
+
     val mediaItems: StateFlow<List<MediaItem>> =
-        mediaRepository.getAllMediaItems()
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        _limit.flatMapLatest { limit ->
+            mediaRepository.getMediaItems(limit = limit, offset = 0)
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    fun loadMore() {
+        _limit.value += 30
+    }
 
     val filteredMedia: StateFlow<List<MediaItem>> =
         combine(mediaItems, _filter) { items, filter ->

@@ -1,7 +1,10 @@
 package com.camerax.presentation.ui.scanner
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +18,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.QrCodeScanner
@@ -27,11 +32,15 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -45,6 +54,22 @@ import com.camerax.presentation.ui.util.FormatUtils
 fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
     val scans by viewModel.scans.collectAsState()
     val scanCount by viewModel.scanCount.collectAsState()
+    val selectedIds by viewModel.selectedIds.collectAsState()
+
+    val listState = rememberLazyListState()
+
+    val shouldLoadMore = remember {
+        derivedStateOf {
+            val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
+            lastVisibleItem != null && lastVisibleItem.index >= scans.size - 5
+        }
+    }
+
+    LaunchedEffect(shouldLoadMore.value) {
+        if (shouldLoadMore.value) {
+            viewModel.loadMore()
+        }
+    }
 
     Box(
         modifier =
@@ -74,7 +99,15 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
                     )
                 }
-                if (scans.isNotEmpty()) {
+                if (selectedIds.isNotEmpty()) {
+                    IconButton(onClick = { viewModel.deleteSelected() }) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = stringResource(R.string.delete_selected),
+                            tint = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                } else if (scans.isNotEmpty()) {
                     IconButton(onClick = { viewModel.clearHistory() }) {
                         Icon(
                             imageVector = Icons.Default.DeleteSweep,
@@ -112,6 +145,7 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                 }
             } else {
                 LazyColumn(
+                    state = listState,
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     items(
@@ -120,6 +154,15 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
                     ) { scan ->
                         ScanHistoryItem(
                             scan = scan,
+                            isSelected = selectedIds.contains(scan.id),
+                            onClick = {
+                                if (selectedIds.isNotEmpty()) {
+                                    viewModel.toggleSelection(scan.id)
+                                } else {
+                                    // Normally view scan, but not requested here
+                                }
+                            },
+                            onLongClick = { viewModel.toggleSelection(scan.id) },
                             onDelete = { viewModel.deleteScan(scan.id) },
                         )
                     }
@@ -135,13 +178,26 @@ fun ScanHistoryScreen(viewModel: ScanHistoryViewModel) {
 @Composable
 private fun ScanHistoryItem(
     scan: ScanResult,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit,
     onDelete: () -> Unit,
 ) {
+    val borderColor by animateColorAsState(
+        targetValue = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
+        label = "borderColor",
+    )
+
     Card(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .animateContentSize(),
+                .animateContentSize()
+                .border(2.dp, borderColor, RoundedCornerShape(16.dp))
+                .combinedClickable(
+                    onClick = onClick,
+                    onLongClick = onLongClick
+                ),
         shape = RoundedCornerShape(16.dp),
         colors =
             CardDefaults.cardColors(
@@ -190,13 +246,22 @@ private fun ScanHistoryItem(
                 )
             }
 
-            IconButton(onClick = onDelete) {
+            if (isSelected) {
                 Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = stringResource(R.string.delete),
-                    tint = MaterialTheme.colorScheme.error.copy(alpha = 0.7f),
-                    modifier = Modifier.size(20.dp),
+                    imageVector = Icons.Default.CheckCircle,
+                    contentDescription = stringResource(R.string.selected),
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(24.dp)
                 )
+            } else {
+                IconButton(onClick = onDelete) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(R.string.delete),
+                        tint = MaterialTheme.colorScheme.error.copy(alpha = 0.7f),
+                        modifier = Modifier.size(20.dp),
+                    )
+                }
             }
         }
     }

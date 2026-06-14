@@ -84,4 +84,23 @@
     <string name="crash_title">Etwas ist schiefgelaufen</string>
     <string name="crash_restart">App neu starten</string>
     <string name="crash_copy_log">Fehlerprotokoll kopieren</string>
+    <string name="barcode_type_url">URL</string>
+    <string name="barcode_type_wifi">WLAN</string>
+    <string name="barcode_type_contact">Kontakt</string>
+    <string name="barcode_type_email">E-Mail</string>
+    <string name="barcode_type_phone">Telefon</string>
+    <string name="barcode_type_sms">SMS</string>
+    <string name="barcode_type_location">Standort</string>
+    <string name="barcode_type_event">Ereignis</string>
+    <string name="barcode_type_product">Produkt</string>
+    <string name="barcode_type_text">Text</string>
+    <string name="barcode_type_unknown">Barcode</string>
+
+    <string name="barcode_action_open_url">Öffnen</string>
+    <string name="barcode_action_call">Anrufen</string>
+    <string name="barcode_action_email">E-Mail senden</string>
+    <string name="barcode_action_sms">SMS senden</string>
+    <string name="barcode_action_map">Karte öffnen</string>
+    <string name="barcode_action_connect">Verbinden</string>
+    <string name="barcode_action_add_contact">Kontakt hinzufügen</string>
 </resources>

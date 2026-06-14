@@ -16,12 +16,12 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace = "com.camerax"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.camerax"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
 
@@ -29,8 +29,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        resourceConfigurations += listOf("en", "es", "fr", "de", "iw")
     }
 
     signingConfigs {
@@ -41,6 +39,9 @@ android {
                 storePassword = localProperties.getProperty("signing.storePassword")
                 keyAlias = localProperties.getProperty("signing.keyAlias")
                 keyPassword = localProperties.getProperty("signing.keyPassword")
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
             } else {
                 storeFile = file("debug.keystore")
                 storePassword = "android"

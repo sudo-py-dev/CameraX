@@ -30,7 +30,7 @@ class ScanHistoryViewModelTest {
     fun setup() {
         repository =
             mockk(relaxed = true) {
-                coEvery { getAllScans() } returns scansFlow
+                coEvery { getScanHistory(any(), any()) } returns scansFlow
                 coEvery { getScanCount() } returns countFlow
             }
         viewModel = ScanHistoryViewModel(repository)
@@ -91,8 +91,7 @@ class ScanHistoryViewModelTest {
 
             viewModel.deleteSelected()
 
-            coVerify(exactly = 1) { repository.deleteScan(1L) }
-            coVerify(exactly = 1) { repository.deleteScan(2L) }
+            coVerify(exactly = 1) { repository.deleteScans(listOf(1L, 2L)) }
             assertEquals(emptySet<Long>(), viewModel.selectedIds.value)
         }
 

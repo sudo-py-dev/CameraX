@@ -32,7 +32,7 @@ class GalleryViewModelTest {
     fun setup() {
         repository =
             mockk(relaxed = true) {
-                coEvery { getAllMediaItems() } returns allMediaFlow
+                coEvery { getMediaItems(any(), any()) } returns allMediaFlow
                 coEvery { getMediaCount() } returns countFlow
             }
         viewModel = GalleryViewModel(repository)
@@ -83,8 +83,7 @@ class GalleryViewModelTest {
 
             viewModel.deleteSelected()
 
-            coVerify(exactly = 1) { repository.deleteMedia(1L) }
-            coVerify(exactly = 1) { repository.deleteMedia(2L) }
+            coVerify(exactly = 1) { repository.deleteMediaIds(listOf(1L, 2L)) }
             assertEquals(emptySet<Long>(), viewModel.selectedIds.value)
         }
 

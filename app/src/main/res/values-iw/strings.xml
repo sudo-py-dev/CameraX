@@ -84,4 +84,23 @@
     <string name="crash_title">משהו השתבש</string>
     <string name="crash_restart">הפעל מחדש</string>
     <string name="crash_copy_log">העתק יומן שגיאות</string>
+    <string name="barcode_type_url">URL</string>
+    <string name="barcode_type_wifi">Wi-Fi</string>
+    <string name="barcode_type_contact">איש קשר</string>
+    <string name="barcode_type_email">דוא"ל</string>
+    <string name="barcode_type_phone">טלפון</string>
+    <string name="barcode_type_sms">הודעת SMS</string>
+    <string name="barcode_type_location">מיקום</string>
+    <string name="barcode_type_event">אירוע</string>
+    <string name="barcode_type_product">מוצר</string>
+    <string name="barcode_type_text">טקסט</string>
+    <string name="barcode_type_unknown">ברקוד</string>
+
+    <string name="barcode_action_open_url">פתח</string>
+    <string name="barcode_action_call">התקשר</string>
+    <string name="barcode_action_email">שלח דוא"ל</string>
+    <string name="barcode_action_sms">שלח SMS</string>
+    <string name="barcode_action_map">פתח מפה</string>
+    <string name="barcode_action_connect">התחבר</string>
+    <string name="barcode_action_add_contact">הוסף איש קשר</string>
 </resources>

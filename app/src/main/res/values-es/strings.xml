@@ -84,4 +84,23 @@
     <string name="crash_title">Algo salió mal</string>
     <string name="crash_restart">Reiniciar app</string>
     <string name="crash_copy_log">Copiar registro de error</string>
+    <string name="barcode_type_url">URL</string>
+    <string name="barcode_type_wifi">Wi-Fi</string>
+    <string name="barcode_type_contact">Contacto</string>
+    <string name="barcode_type_email">Correo electrónico</string>
+    <string name="barcode_type_phone">Teléfono</string>
+    <string name="barcode_type_sms">SMS</string>
+    <string name="barcode_type_location">Ubicación</string>
+    <string name="barcode_type_event">Evento</string>
+    <string name="barcode_type_product">Producto</string>
+    <string name="barcode_type_text">Texto</string>
+    <string name="barcode_type_unknown">Código de barras</string>
+
+    <string name="barcode_action_open_url">Abrir</string>
+    <string name="barcode_action_call">Llamar</string>
+    <string name="barcode_action_email">Enviar correo</string>
+    <string name="barcode_action_sms">Enviar SMS</string>
+    <string name="barcode_action_map">Abrir mapa</string>
+    <string name="barcode_action_connect">Conectar</string>
+    <string name="barcode_action_add_contact">Añadir contacto</string>
 </resources>
